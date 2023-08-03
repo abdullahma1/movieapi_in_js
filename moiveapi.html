@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+<form id="movieForm" autocomplete="off">
+
+    <h1 class="text-center mt-5">Movie API Project</h1>
+<div class="container">
+    <label for="">Movie Name</label>
+    <input class="form-control my-2" type="text" id="movie">
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger btn-block">Search</button>
+    </div>
+</div>
+
+<div class="result">
+
+
+</div>
+</form>
+
+</body>
+<script>
+
+$(document).ready(function(){
+    
+    var apikey = "61eca9d0";
+    var url1 = "http://www.omdbapi.com/?apikey=" + apikey;
+
+    $("#movieForm").submit(function(event){
+        event.preventDefault();
+        var movie = $("#movie").val();
+
+        $.ajax({
+            method: "GET",
+            url: url1 + "&t=" + movie,
+            success: function(data){
+                
+                result = `
+                <img  style="float-left" width="400" height="400"  src= ${data.Poster} />
+                <h3> Moive Name = ${data.Title} </h3>
+                <h3> Moive Year = ${data.Year} </h3>
+                
+                `;
+                $(".result").html(result)
+            }
+            
+        });
+
+       
+    });
+
+
+
+});
+
+</script>
+</html>
